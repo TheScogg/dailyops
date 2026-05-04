@@ -78,6 +78,11 @@ h1 {
   gap: 0.6rem;
 }
 
+.meta-row {
+  margin-top: 0.6rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 input[type="text"] {
   width: 100%;
   padding: 0.75rem 0.85rem;
@@ -86,7 +91,17 @@ input[type="text"] {
   font: inherit;
 }
 
+select {
+  width: 100%;
+  padding: 0.75rem 0.85rem;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  font: inherit;
+  background: #fff;
+}
+
 input[type="text"]:focus,
+select:focus,
 button:focus-visible {
   outline: 2px solid #0b7f67;
   outline-offset: 2px;
@@ -152,9 +167,54 @@ button:hover {
   background: #fff;
 }
 
+.chore-main {
+  display: grid;
+  gap: 0.35rem;
+}
+
 .chore-text {
   margin: 0;
   overflow-wrap: anywhere;
+}
+
+.chore-meta {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.chip {
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 0.2rem 0.45rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+}
+
+.chip.high {
+  background: #fbe5dd;
+  border-color: #f4c1af;
+  color: #8c2f1f;
+}
+
+.chip.medium {
+  background: #f8efdd;
+  border-color: #f1d8a8;
+  color: #714f0b;
+}
+
+.chip.low {
+  background: #e8f5ec;
+  border-color: #bcdfc7;
+  color: #1f5b36;
+}
+
+.chip.alert {
+  background: #ffe9e2;
+  color: #962f21;
+  border-color: #efb8aa;
 }
 
 .chore-item.done .chore-text {
@@ -180,6 +240,11 @@ button:hover {
 @media (max-width: 560px) {
   .app-shell {
     margin-top: 1.6rem;
+  }
+
+  .main-row,
+  .meta-row {
+    grid-template-columns: 1fr;
   }
 
   .chore-item {

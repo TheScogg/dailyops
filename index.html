@@ -14,22 +14,50 @@
     <header class="hero">
       <p class="eyebrow">DailyOps</p>
       <h1>Chore Tracker</h1>
-      <p class="subtitle">Plan, finish, and keep your home streak alive.</p>
+      <p class="subtitle">AP-style operations for home chores: categories, shifts, reminders, and history.</p>
     </header>
 
     <section class="card input-card">
       <form id="chore-form" class="chore-form">
-        <label for="chore-name">Add a chore</label>
-        <div class="form-row">
+        <label for="chore-name">Log chore</label>
+        <div class="form-row main-row">
           <input id="chore-name" name="chore" type="text" maxlength="80" placeholder="Wash dishes, vacuum room..." required>
-          <button type="submit">Add</button>
+          <button type="submit">Log</button>
+        </div>
+        <div class="form-row meta-row">
+          <select id="chore-category" name="category" aria-label="Category">
+            <option value="General">General</option>
+            <option value="Kitchen">Kitchen</option>
+            <option value="Laundry">Laundry</option>
+            <option value="Cleaning">Cleaning</option>
+            <option value="Outdoor">Outdoor</option>
+          </select>
+          <select id="chore-priority" name="priority" aria-label="Priority">
+            <option value="low">Low priority</option>
+            <option value="medium" selected>Medium priority</option>
+            <option value="high">High priority</option>
+          </select>
+          <select id="chore-reminder" name="reminder" aria-label="Reminder">
+            <option value="0">No reminder</option>
+            <option value="15">Remind in 15m</option>
+            <option value="30">Remind in 30m</option>
+            <option value="60">Remind in 1h</option>
+            <option value="120">Remind in 2h</option>
+          </select>
         </div>
       </form>
       <div class="stats" id="stats" aria-live="polite"></div>
-      <div class="filters" role="tablist" aria-label="Filter chores">
+      <div class="filters" role="tablist" aria-label="Filter chores by status">
         <button class="filter-btn active" data-filter="all" type="button">All</button>
         <button class="filter-btn" data-filter="open" type="button">Open</button>
         <button class="filter-btn" data-filter="done" type="button">Done</button>
+        <button class="filter-btn" data-filter="alert" type="button">Alerts</button>
+      </div>
+      <div class="filters" role="tablist" aria-label="Filter chores by timeframe">
+        <button class="filter-btn active" data-time="all" type="button">All Time</button>
+        <button class="filter-btn" data-time="today" type="button">Today</button>
+        <button class="filter-btn" data-time="week" type="button">Week</button>
+        <button class="filter-btn" data-time="month" type="button">Month</button>
       </div>
     </section>
 
