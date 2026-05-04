@@ -8,12 +8,26 @@ const choreReminder = document.querySelector("#chore-reminder");
 const choreList = document.querySelector("#chore-list");
 const emptyState = document.querySelector("#empty-state");
 const stats = document.querySelector("#stats");
+const surpriseBtn = document.querySelector("#surprise-btn");
+const surpriseText = document.querySelector("#surprise-text");
 const statusButtons = document.querySelectorAll(".filter-btn[data-filter]");
 const timeButtons = document.querySelectorAll(".filter-btn[data-time]");
 
 let chores = loadChores();
 let activeStatus = "all";
 let activeTime = "all";
+let xp = Number(localStorage.getItem("dailyops-xp-v1") || "0");
+
+const surprisePool = [
+  "Wipe one counter until it shines.",
+  "Do a 5-minute speed tidy.",
+  "Fold five items right now.",
+  "Empty one trash can.",
+  "Sanitize your phone and desk.",
+  "Clean one mirror.",
+  "Refill soap or paper supplies.",
+  "Put away everything on one chair.",
+];
 
 render();
 setInterval(render, 30000);
@@ -54,7 +68,16 @@ choreList.addEventListener("click", (event) => {
   if (!id) return;
 
   if (button.dataset.action === "toggle") {
-    chores = chores.map((chore) => (chore.id === id ? { ...chore, done: !chore.done } : chore));
+    chores = chores.map((chore) => {
+      if (chore.id !== id) return chore;
+      const nextDone = !chore.done;
+      if (!chore.done && nextDone) {
+        xp += chore.priority === "high" ? 25 : chore.priority === "medium" ? 15 : 10;
+        localStorage.setItem("dailyops-xp-v1", String(xp));
+        launchBurst();
+      }
+      return { ...chore, done: nextDone };
+    });
   }
 
   if (button.dataset.action === "delete") {
@@ -63,6 +86,11 @@ choreList.addEventListener("click", (event) => {
 
   saveChores();
   render();
+});
+
+surpriseBtn.addEventListener("click", () => {
+  const pick = surprisePool[Math.floor(Math.random() * surprisePool.length)];
+  surpriseText.textContent = `Mini mission: ${pick}`;
 });
 
 statusButtons.forEach((button) => {
@@ -146,7 +174,7 @@ function render() {
   const openCount = chores.filter((chore) => !chore.done).length;
   const doneCount = chores.length - openCount;
   const alertCount = chores.filter(isAlert).length;
-  stats.textContent = `${openCount} open • ${doneCount} done • ${alertCount} alerts • ${chores.length} total`;
+  stats.textContent = `${openCount} open • ${doneCount} done • ${alertCount} alerts • ${chores.length} total • ${xp} XP`;
 
   const visibleChores = getVisibleChores();
   choreList.innerHTML = "";
@@ -195,6 +223,19 @@ function render() {
   });
 
   emptyState.hidden = visibleChores.length > 0;
+}
+
+function launchBurst() {
+  const icons = ["✨", "🎉", "🧼", "✅", "⚡"];
+  for (let i = 0; i < 12; i += 1) {
+    const burst = document.createElement("span");
+    burst.className = "burst";
+    burst.textContent = icons[Math.floor(Math.random() * icons.length)];
+    burst.style.left = `${Math.random() * 100}vw`;
+    burst.style.animationDelay = `${Math.random() * 120}ms`;
+    document.body.appendChild(burst);
+    setTimeout(() => burst.remove(), 1000);
+  }
 }
 
 function makeChip(label, variant) {

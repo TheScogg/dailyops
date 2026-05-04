@@ -131,6 +131,24 @@ button:hover {
   color: var(--muted);
 }
 
+.fun-row {
+  margin-top: 0.8rem;
+  display: grid;
+  gap: 0.4rem;
+}
+
+#surprise-btn {
+  justify-self: start;
+  background: #1a4f8f;
+  color: #fff;
+}
+
+.surprise-text {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
 .filters {
   margin-top: 0.8rem;
   display: inline-flex;
@@ -217,6 +235,14 @@ button:hover {
   border-color: #efb8aa;
 }
 
+.burst {
+  position: fixed;
+  top: -2rem;
+  font-size: 1.1rem;
+  pointer-events: none;
+  animation: drop 900ms ease-in forwards;
+}
+
 .chore-item.done .chore-text {
   text-decoration: line-through;
   color: var(--muted);
@@ -260,5 +286,12 @@ button:hover {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes drop {
+  to {
+    transform: translateY(110vh) rotate(340deg);
+    opacity: 0;
   }
 }
