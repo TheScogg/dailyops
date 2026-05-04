@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DailyOps Chore Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="hero">
+      <p class="eyebrow">DailyOps</p>
+      <h1>Chore Tracker</h1>
+      <p class="subtitle">Plan, finish, and keep your home streak alive.</p>
+    </header>
+
+    <section class="card input-card">
+      <form id="chore-form" class="chore-form">
+        <label for="chore-name">Add a chore</label>
+        <div class="form-row">
+          <input id="chore-name" name="chore" type="text" maxlength="80" placeholder="Wash dishes, vacuum room..." required>
+          <button type="submit">Add</button>
+        </div>
+      </form>
+      <div class="stats" id="stats" aria-live="polite"></div>
+      <div class="filters" role="tablist" aria-label="Filter chores">
+        <button class="filter-btn active" data-filter="all" type="button">All</button>
+        <button class="filter-btn" data-filter="open" type="button">Open</button>
+        <button class="filter-btn" data-filter="done" type="button">Done</button>
+      </div>
+    </section>
+
+    <section class="card list-card">
+      <ul id="chore-list" class="chore-list" aria-live="polite"></ul>
+      <p id="empty-state" class="empty-state">No chores yet. Add your first one.</p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
